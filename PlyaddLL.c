@@ -143,7 +143,7 @@ int main()
 
     R = addPoly(P, Q);
 
-    printf("\nResult R = ");
+    printf("\nResult = ");
     display(R);
 
     return 0;
