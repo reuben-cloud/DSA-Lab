@@ -206,7 +206,7 @@ int main()
 
             case 4:
                 if (k3 <= 0) {
-                    printf("\nPlease run Option 3 (Add Sparse Matrices) first!\n");
+                    printf("Add Sparse Matrices first!\n");
                 } else {
                     kt = transpose(s3, t_sum);
                     printf("\nTranspose of Added Matrix:");
