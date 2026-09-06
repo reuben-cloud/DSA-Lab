@@ -1,8 +1,7 @@
 #include <stdio.h>
-
 #define MAX 5
 
-// --- QUEUE ---
+
 int q[MAX], front = -1, rear = -1;
 
 void enqueue() {
@@ -50,7 +49,7 @@ void handleQueue() {
     } while (choice != 4);
 }
 
-// --- DEQUE ---
+
 int dq[MAX], dFront = -1, dRear = -1;
 
 void pushFront() {
@@ -124,7 +123,7 @@ void handleDeque() {
     } while (choice != 6);
 }
 
-// --- MAIN ---
+
 int main() {
     int choice;
     do {
