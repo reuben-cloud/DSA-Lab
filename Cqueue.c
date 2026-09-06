@@ -6,25 +6,25 @@
 int queue[MAX];
 int front = -1, rear = -1;
 
-
+// Function to insert an element
 void enqueue(int item) {
     if ((rear + 1) % MAX == front) {
         printf("Queue Overflow\n");
         return;
     }
     
-    if (front == -1) { 
+    if (front == -1) { // If inserting the first element
         front = 0;
         rear = 0;
     } else {
-        rear = (rear + 1) % MAX; 
+        rear = (rear + 1) % MAX; // Circular increment
     }
     
     queue[rear] = item;
     printf("%d enqueued to queue\n", item);
 }
 
-
+// Function to delete an element
 void dequeue() {
     if (front == -1) {
         printf("Queue Underflow (Empty)\n");
@@ -33,15 +33,15 @@ void dequeue() {
     
     printf("%d dequeued from queue\n", queue[front]);
     
-    if (front == rear) { 
+    if (front == rear) { // If only one element was left
         front = -1;
         rear = -1;
     } else {
-        front = (front + 1) % MAX; 
+        front = (front + 1) % MAX; // Circular increment
     }
 }
 
-
+// Function to display the queue
 void display() {
     if (front == -1) {
         printf("Queue is Empty\n");
@@ -49,11 +49,11 @@ void display() {
     }
     
     printf("Queue elements: ");
-    int i = front;
+    int temp = front;
     while (1) {
-        printf("%d ", queue[i]);
-        if (i == rear) break;
-        i = (i + 1) % MAX;
+        printf("%d ", queue[temp]);
+        if (temp == rear) break;
+        temp = (temp + 1) % MAX;
     }
     printf("\n");
 }
