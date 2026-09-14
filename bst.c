@@ -50,22 +50,31 @@ void insert(int item) {
 }
 
 void search(int item) {
-    struct node *ptr = root;
+    struct node *ptr = root, *parent = NULL;
     int flag = 0;
 
     while (ptr != NULL && flag == 0) {
-        if (ptr->data == item)
+        if (ptr->data == item) {
             flag = 1;
-        else if (ptr->data < item)
+        } else if (ptr->data < item) {
+            parent = ptr;
             ptr = ptr->rchild;
-        else
+        } else {
+            parent = ptr;
             ptr = ptr->lchild;
+        }
     }
 
-    if (flag == 1)
-        printf("Search data found\n");
-    else
+    if (flag == 1) {
+        if (parent == NULL)
+            printf("%d is the root node.\n", item);
+        else if (parent->lchild == ptr)
+            printf("%d is found as lchild of %d\n", item, parent->data);
+        else
+            printf("%d is found as rchild of %d\n", item, parent->data);
+    } else {
         printf("Search data not found\n");
+    }
 }
 
 void delnode(int item) {
@@ -185,4 +194,3 @@ int main() {
 
     return 0;
 }
-
