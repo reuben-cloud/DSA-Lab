@@ -26,7 +26,7 @@ int main() {
     int a[100], n, item, res, ch;
 
     while (1) {
-        printf("\n1. Enter Array\n2. Binary Search\n3. Time Complexity Analysis\n4. Exit\nChoice: ");
+        printf("\n1. Enter Array\n2. Binary Search\n3. Time Complexity\n4. Exit\nChoice: ");
         scanf("%d", &ch);
 
         switch (ch) {
@@ -51,11 +51,10 @@ int main() {
                 else
                     printf("Item not found.\n");
 
-                printf("Frequency Count (Function calls): %d\n", count);
+                printf("Frequency Count: %d\n", count);
                 break;
 
             case 3:
-                printf("\n--- TIME COMPLEXITY ---\n");
                 printf("Frequency Count: T(n) = T(n/2) + O(1)\n");
                 printf("Best Case: O(1)\n");
                 printf("Worst Case: O(log n)\n");
