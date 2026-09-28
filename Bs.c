@@ -1,71 +1,69 @@
 #include <stdio.h>
+#include <stdlib.h>
+
+int count = 0;
+
+int bin_search(int a[], int low, int high, int item) {
+    count++;
+    if (low > high) {
+        return -1;
+    }
+    
+    int mid = (low + high) / 2;
+    if (a[mid] == item) {
+        return mid;
+    }
+    if (a[mid] > item) {
+        return bin_search(a, low, mid - 1, item);
+    }
+    if (a[mid] < item) {
+        return bin_search(a, mid + 1, high, item);
+    }
+    return -1;
+}
 
 int main() {
-    int n, target, choice;
-    int arr[100];
-    int size = 0;
+    int a[100], n, item, res, ch;
 
     while (1) {
-        printf("\n1. Enter Array\n2. Search & Count Operations\n3. Show Complexity Analysis\n4. Exit\nChoice: ");
-        scanf("%d", &choice);
+        printf("\n1. Enter Array\n2. Binary Search\n3. Time Complexity Analysis\n4. Exit\nChoice: ");
+        scanf("%d", &ch);
 
-        switch (choice) {
+        switch (ch) {
             case 1:
                 printf("Enter number of elements: ");
                 scanf("%d", &n);
-                size = n;
-
                 printf("Enter %d sorted elements:\n", n);
                 for (int i = 0; i < n; i++) {
-                    scanf("%d", &arr[i]);
+                    scanf("%d", &a[i]);
                 }
                 break;
 
-            case 2: {
-                if (size == 0) {
-                    printf("Please enter the array first!\n");
-                    break;
-                }
+            case 2:
+                printf("Enter item to search: ");
+                scanf("%d", &item);
+                
+                count = 0;
+                res = bin_search(a, 0, n - 1, item);
 
-                printf("Enter element to search: ");
-                scanf("%d", &target);
-
-                int low = 0, high = size - 1;
-                int found = -1;
-                int count = 0;  // Frequency counter for iterations
-
-                while (low <= high) {
-                    count++;  // Counting loop execution frequency
-                    int mid = low + (high - low) / 2;
-
-                    if (arr[mid] == target) {
-                        found = mid;
-                        break;
-                    }
-                    if (arr[mid] < target)
-                        low = mid + 1;
-                    else
-                        high = mid - 1;
-                }
-
-                if (found != -1)
-                    printf("Element found at index: %d\n", found);
+                if (res != -1)
+                    printf("Item found at index: %d\n", res);
                 else
-                    printf("Element not found.\n");
+                    printf("Item not found.\n");
 
-                printf("Frequency Count (Loop iterations): %d\n", count);
+                printf("Frequency Count (Function calls): %d\n", count);
                 break;
-            }
 
             case 3:
-                printf("\n--- TIME COMPLEXITY VIA FREQUENCY COUNT ---\n");
-                printf("Frequency Equation: f(n) = log2(n)\n");
-                printf("Worst Case Frequency: ceil(log2(%d)) + 1\n", size > 0 ? size : 1);
-                printf("Time Complexity Class: O(log n)\n");
+                printf("\n--- TIME COMPLEXITY ---\n");
+                printf("Frequency Count: T(n) = T(n/2) + O(1)\n");
+                printf("Best Case: O(1)\n");
+                printf("Worst Case: O(log n)\n");
+                printf("Space Complexity: O(log n)\n");
                 break;
 
             case 4:
-                return 0;
+                exit(0);
 
             default:
                 printf("Invalid choice!\n");
