@@ -75,7 +75,7 @@ int main() {
                     break;
                 }
                 printf("Time complexity count c = %d\n", c);
-                printf("Space complexity = %d bytes (%d * %d bytes for array + fixed variables)\n", 
+                printf("Space complexity = %d bytes\n", 
                         (n * 4) + 20, n, 4);
                 break;
 
