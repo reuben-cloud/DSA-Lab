@@ -1,71 +1,68 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-struct Node {
-    char url[50];
-    struct Node *prev, *next;
-};
+int adj[20][20], n;
 
-struct Node *current = NULL;
+void BFS(int start) {
+    int q[20], visited[20] = {0}, f = 0, r = 0;
+    visited[start] = 1;
+    q[r++] = start;
 
-void visit(char *url) {
-    struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
-    strcpy(newNode->url, url);
-    newNode->next = NULL;
-    newNode->prev = current;
-
-    if (current != NULL) {
-        current->next = newNode;
+    printf("\nBFS Traversal: ");
+    while (f < r) {
+        int v = q[f++];
+        printf("%d ", v);
+        for (int w = 0; w < n; w++) {
+            if (adj[v][w] && !visited[w]) {
+                visited[w] = 1;
+                q[r++] = w;
+            }
+        }
     }
-    current = newNode;
-    printf("Visited: %s\n", current->url);
+    printf("\n");
 }
 
-void back() {
-    if (current != NULL && current->prev != NULL) {
-        current = current->prev;
-        printf("Current Page: %s\n", current->url);
-    } else {
-        printf("No backward history.\n");
+void DFS(int v, int visited[]) {
+    visited[v] = 1;
+    printf("%d ", v);
+    for (int w = 0; w < n; w++) {
+        if (adj[v][w] && !visited[w]) DFS(v = w, visited); // recursive inline call
     }
 }
 
-void forward() {
-    if (current != NULL && current->next != NULL) {
-        current = current->next;
-        printf("Current Page: %s\n", current->url);
-    } else {
-        printf("No forward history.\n");
-    }
+int get_start() {
+    int start;
+    printf("Enter starting vertex (0 to %d): ", n - 1);
+    scanf("%d", &start);
+    return start;
 }
 
 int main() {
-    int choice;
-    char url[50];
+    int choice, visited[20] = {0};
+
+    printf("Enter total number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter the Adjacency Matrix (%dx%d):\n", n, n);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            scanf("%d", &adj[i][j]);
 
     while (1) {
-        printf("\n--- Browser Navigation ---\n");
-        printf("1. Visit New Page\n2. Back\n3. Forward\n4. Exit\n");
-        printf("Enter choice: ");
+        printf("\n--- MENU --- \n1. Breadth First Search (BFS)\n2. Depth First Search (DFS)\n3. Exit\nEnter your choice: ");
         scanf("%d", &choice);
 
-        switch (choice) {
-            case 1:
-                printf("Enter URL: ");
-                scanf("%s", url);
-                visit(url);
-                break;
-            case 2:
-                back();
-                break;
-            case 3:
-                forward();
-                break;
-            case 4:
-                return 0;
-            default:
-                printf("Invalid choice!\n");
+        if (choice == 1) {
+            BFS(get_start());
+        } else if (choice == 2) {
+            for (int i = 0; i < n; i++) visited[i] = 0;
+            printf("\nDFS Traversal: ");
+            DFS(get_start(), visited);
+            printf("\n");
+        } else if (choice == 3) {
+            exit(0);
+        } else {
+            printf("Invalid choice! Try again.\n");
         }
     }
 }
